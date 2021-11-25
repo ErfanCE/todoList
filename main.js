@@ -1,8 +1,9 @@
+// DOM elements
 const taskInput = document.getElementById('task-input');
 const taskForm = document.getElementById('task-form');
 const taskList = document.getElementById('task-list');
 const taskFilter = document.getElementById('task-filter');
-
+const clearTasksBtn = document.getElementById('clear-tasks-btn');
 
 // Get tasks from LS
 const getTasks = () => {
@@ -19,7 +20,7 @@ const setTasks = (tasks) => {
 
 const addTask = () => {
     const tasks = getTasks();
-
+    if (taskInput.value === '') return alert('empty input');
     if (tasks.find(task => task === taskInput.value)) return alert('duplicate task!');
 
     tasks.push(taskInput.value);
@@ -72,6 +73,21 @@ const renderRemoveTask = (e) => {
     }
 };
 
+// filter task
+const filterTask = () => {
+    const tasks = getTasks();
+
+    const filteredTasks = tasks.filter(task => task.includes(taskFilter.value));
+
+    renderTasks(filteredTasks);
+};
+
+// clear all tasks
+const clearTasks = () => {
+    if (confirm('Are you sure?')) localStorage.clear();
+
+    renderTasks();
+};
 
 // load event listener
 function loadEventListener() {
@@ -81,22 +97,25 @@ function loadEventListener() {
     // remove task
     taskList.addEventListener('click', renderRemoveTask);
 
-    // filter task
+    // clear all tasks
+    clearTasksBtn.addEventListener('click', clearTasks)
 
+    // filter task
+    taskFilter.addEventListener('keyup', filterTask);
 } loadEventListener();
 
 // render tasks to DOM
-function renderTasks() {
-    const tasks = getTasks();
-
+function renderTasks(tasks = getTasks()) {
     taskList.innerHTML = '';
+
+    const taskListHeader = `
+    <li class="collection-header">
+        <h5>Tasks</h5>
+    </li>`;
+
+    taskList.insertAdjacentHTML('afterbegin', taskListHeader);
 
     for (const task of tasks) {
         renderAddTask(task);
     }
 } renderTasks();
-
-
-const filterTask = () => {
-
-};
