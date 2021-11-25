@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+  <!-- Materialize icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- google Jquery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <title>ToDo</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Task List</span>
+
+            <div class="row">
+              <form id="task-form">
+                <div class="input-field col s12">
+                  <input id="task-input" type="text" class="validate" />
+                  <label for="task-input">New Task</label>
+                </div>
+
+                <div class="col s12">
+                  <button type="submit" class="col s12 btn waves-effect waves-light blue darken-3">
+                    add Task
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card-action">
+            <div class="row">
+              <div class="col s12">
+
+                <div class="input-field col s12">
+                  <input id="filter" type="text" class="validate" />
+                  <label for="filter">Filter Task</label>
+                </div>
+
+                <ul class="collection with-header" id="task-list">
+                  <li class="collection-header">
+                    <h5>Tasks</h5>
+                  </li>
+
+                  
+                </ul>
+                <a href="#" class="btn waves-block waves-effect waves-light red darken-3">clear Tasks</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- local scripts -->
+  <script src="./main.js"></script>
+</body>
+
+</html>
