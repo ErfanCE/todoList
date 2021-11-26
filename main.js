@@ -20,8 +20,9 @@ const setTasks = (tasks) => {
 
 const addTask = () => {
     const tasks = getTasks();
+    
     if (taskInput.value === '') return alert('empty input');
-    if (tasks.find(task => task === taskInput.value)) return alert('duplicate task!');
+    if (tasks.find(task => task.toLowerCase() === taskInput.value.toLowerCase())) return alert('duplicate task!');
 
     tasks.push(taskInput.value);
 
@@ -29,17 +30,6 @@ const addTask = () => {
     renderTasks();
 
     taskInput.value = '';
-};
-
-const removeTask = (targetTask) => {
-    if (typeof targetTask !== 'string') return console.log('400: removeTask()');
-
-    const tasks = getTasks();
-
-    tasks.splice(tasks.indexOf(targetTask), 1);
-
-    setTasks(tasks);
-    renderTasks();
 };
 
 const renderAddTask = (taskContent) => {
@@ -65,6 +55,17 @@ const renderAddTask = (taskContent) => {
     taskList.appendChild(taskItem);
 };
 
+const removeTask = (targetTask) => {
+    const tasks = getTasks();
+
+    if (typeof targetTask !== 'string') return console.log('400: removeTask()');
+
+    tasks.splice(tasks.indexOf(targetTask), 1);
+
+    setTasks(tasks);
+    renderTasks();
+};
+
 const renderRemoveTask = (e) => {
     if (e.target.parentElement.classList.contains('remove-task')) {
         const task = e.target.parentElement.parentElement.childNodes[0].textContent;
@@ -73,23 +74,20 @@ const renderRemoveTask = (e) => {
     }
 };
 
-// filter task
 const filterTask = () => {
     const tasks = getTasks();
 
-    const filteredTasks = tasks.filter(task => task.includes(taskFilter.value));
+    const filteredTasks = tasks.filter(task => task.toLowerCase().includes(taskFilter.value.toLowerCase()));
 
     renderTasks(filteredTasks);
 };
 
-// clear all tasks
 const clearTasks = () => {
     if (confirm('Are you sure?')) localStorage.clear();
 
     renderTasks();
 };
 
-// load event listener
 function loadEventListener() {
     // add new task
     taskForm.addEventListener('submit', addTask);
@@ -115,7 +113,5 @@ function renderTasks(tasks = getTasks()) {
 
     taskList.insertAdjacentHTML('afterbegin', taskListHeader);
 
-    for (const task of tasks) {
-        renderAddTask(task);
-    }
+    for (const task of tasks) renderAddTask(task);
 } renderTasks();
